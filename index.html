@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Form</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.jpg" alt="logo">
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="reservation-table">
+            <table border="1">
+                <tr>
+                    <td width="1">
+                        <input type="checkbox" name="checkbox1" id="checkbox1">
+                    </td>
+                    <td>0000</td>
+                    <td width="100" class="empty" id="slot1"></td>
+                    <td width="1">
+                        <input type="checkbox" name="checkbox2" id="checkbox2">
+                    </td>
+                    <td>0001</td>
+                    <td width="100" class="empty" id="slot2"></td>
+                </tr>
+                <tr>
+                    <td width="1">
+                        <input type="checkbox" name="checkbox1" id="checkbox3">
+                    </td>
+                    <td>0002</td>
+                    <td width="100" class="empty" id="slot3"></td>
+                    <td width="1">
+                        <input type="checkbox" name="checkbox2" id="checkbox4">
+                    </td>
+                    <td>0004</td>
+                    <td width="100" class="empty" id="slot4"></td>
+                </tr>
+                <tr>
+                    <td width="1">
+                        <input type="checkbox" name="checkbox1" id="checkbox4">
+                    </td>
+                    <td>0005</td>
+                    <td width="100" class="empty" id="slot5"></td>
+                    <td width="1">
+                        <input type="checkbox" name="checkbox2" id="checkbox5">
+                    </td>
+                    <td>0006</td>
+                    <td width="100" class="empty" id="slot6"></td>
+                </tr>
+            </table>
+            <button id="reserve-button">Reserve slot here</button>
+        </section>
+    </main>
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Reservation Details</h2>
+            <form id="reservationForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br><br>
+                <label for="mobile">Mobile Number:</label>
+                <input type="text" id="mobile" name="mobile"><br><br>
+                <h3>Slot Numbers:</h3> ()
+                <input type="button" value="Submit" onclick="submitReservation()">
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
