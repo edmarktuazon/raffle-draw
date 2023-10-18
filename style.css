@@ -1,29 +1,176 @@
 /** @format */
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: "Montserrat", sans-serif;
-}
-header {
-	display: flex;
-	justify-content: center;
-}
-header nav .logo img {
-	width: 220px;
+	font-family: "Inter", sans-serif;
 }
 
-main .reservation-table {
-	max-width: 1280px;
-	margin: 0 auto;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	appearance: none;
+}
+
+/* Reserved Slot Style */
+.reserved {
+	background-color: gray;
+}
+
+/* Paid Slot Style */
+.paid {
+	background-color: blue;
+}
+.slot-box {
+	display: inline-block;
+	font-size: 0.875rem;
+	font-weight: 600;
+	border: 1px solid rgb(192, 192, 192);
+	padding: 0.625rem;
+	color: rgb(13, 173, 85);
+	border-radius: 0.3125rem;
+	background-color: transparent;
+}
+.slot-added {
+	background: rgb(255, 1, 1);
+	border-radius: 50%;
+	color: #fff;
+	height: 1.25rem;
+	font-size: 0.75rem;
+	margin-top: -1.25rem;
+	margin-left: 0.625rem;
+	width: 1.25rem;
 	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#totalPrice {
+	margin-top: 10px;
+}
+
+#modalContainer.is-open {
+	height: 100vh;
+	align-items: center;
+	justify-content: center;
+}
+
+section {
+	height: 100vh;
+	padding: 0 1.25rem;
+}
+
+.initial-modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 999;
 	justify-content: center;
 	align-items: center;
-	flex-direction: column;
+}
+.success-modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 999;
+	justify-content: center;
+	align-items: center;
 }
 
+.success-modal .modal-content .gcash-logo {
+	display: flex;
+	justify-content: center;
+}
+.success-modal .modal-content img {
+	height: 100px;
+	margin-bottom: 1.25rem;
+	border-radius: 10px;
+}
+.success-modal .modal-content ul {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	line-height: 1.6;
+}
+.success-modal .modal-content ul li {
+	list-style: none;
+}
+.success-modal .modal-content p {
+	font-size: 1rem;
+	text-align: center;
+	color: #202020;
+	margin-top: 1.25rem;
+	line-height: 1.6;
+}
+.success-modal .modal-content input[type="button"] {
+	width: 100%;
+	border: none;
+	padding: 1.25rem;
+	margin-top: 2.5rem;
+	border: 1px solid rgb(12, 143, 71);
+	background-color: transparent;
+	color: rgb(12, 143, 71);
+	cursor: pointer;
+	font-size: 1rem;
+	text-transform: uppercase;
+	border-radius: 0.3125rem;
+	transition: all 0.3s ease-in-out;
+	font-weight: 600;
+	letter-spacing: 0.0313rem;
+}
+.success-modal .modal-content input[type="button"]:hover {
+	transition: all 0.3s ease-in-out;
+	background-color: rgba(13, 173, 85, 0.212);
+	color: rgb(12, 143, 71);
+}
+
+.initial-modal .modal-content h2 {
+	padding: 0 !important;
+	color: #202020;
+	margin: 1.875rem 0 0.625rem 0;
+}
+
+.initial-modal .modal-content p {
+	font-weight: 400;
+	font-size: 1rem;
+	color: rgb(122, 122, 122);
+	text-align: center;
+	line-height: 1.5;
+}
+.initial-modal .modal-content input[type="button"] {
+	width: 100%;
+	border: none;
+	padding: 1.25rem;
+	margin-top: 2.5rem;
+	border: 1px solid rgb(12, 143, 71);
+	background-color: transparent;
+	color: rgb(12, 143, 71);
+	cursor: pointer;
+	font-size: 1rem;
+	text-transform: uppercase;
+	border-radius: 0.3125rem;
+	transition: all 0.3s ease-in-out;
+	font-weight: 600;
+	letter-spacing: 0.0313rem;
+}
+.initial-modal .modal-content input[type="button"]:hover {
+	transition: all 0.3s ease-in-out;
+	background-color: rgba(13, 173, 85, 0.212);
+	color: rgb(12, 143, 71);
+}
 .modal {
 	display: none;
+	align-items: center;
+	justify-content: center;
 	position: fixed;
 	z-index: 1;
 	left: 0;
@@ -33,56 +180,231 @@ main .reservation-table {
 	overflow: auto;
 	background-color: rgba(0, 0, 0, 0.7);
 }
-
 .modal-content {
-	background-color: #fefefe;
-	margin: 15% auto;
+	background-color: #fff;
 	padding: 20px;
-	border: 1px solid #888;
-	width: 50%;
+	border-radius: 5px;
+	width: 80%;
+	max-width: 600px;
+	position: relative;
 }
-
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
+.modal-content h2 {
+	text-align: center;
+	color: #202020;
+	padding: 3.125rem 0;
 }
-
-.close:hover,
-.close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
+.modal-content form {
+	display: grid;
+	gap: 1.875rem;
 }
-
-.reservation-table {
-	margin: 20px;
+.modal-content form label {
+	display: grid;
+	font-weight: 600;
 }
-
-table {
+.modal-content form label input {
+	margin: 0.625rem 0;
+	padding: 0.625rem;
+	border: 1px solid rgb(165, 165, 165);
+	border-radius: 0.3125rem;
+	font-size: 1.125rem;
 	width: 100%;
+}
+.modal-content form label p {
+	font-weight: 400;
+	font-size: 0.875rem;
+	color: rgb(139, 139, 139);
+}
+.modal-content form input[type="button"] {
+	width: 100%;
+	border: none;
+	padding: 1.25rem;
+	background-color: rgb(12, 143, 71);
+	color: #fff;
+	cursor: pointer;
+	font-size: 1rem;
+	text-transform: uppercase;
+	border-radius: 0.3125rem;
+	transition: all 0.3s ease-in-out;
+	font-weight: 600;
+	letter-spacing: 0.0313rem;
+}
+.modal-content form input[type="button"]:hover {
+	transition: all 0.3s ease-in-out;
+	background-color: rgb(13, 173, 85);
+	box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.253);
+}
+.modal-content .fa-xmark {
+	border-radius: 100%;
+	padding: 10px 12px;
+	font-size: 1.25rem;
+	cursor: pointer;
+	margin-bottom: 1.875rem;
+	position: absolute;
+	right: 16px;
+	top: 0.625rem;
+	color: rgb(122, 122, 122);
+	transition: all 0.3s ease-in-out;
+}
+.modal-content .fa-xmark:hover {
+	transition: all 0.3s ease-in-out;
+	background-color: rgb(245, 245, 245);
+}
+.reservation-table .logo {
+	width: 40%;
+	margin: auto;
+	padding: 0.625rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(218, 207, 149);
+}
+
+.reservation-table .logo img {
+	width: 12.5rem;
+}
+.reservation-table .reservation-wrapper {
+	width: 40%;
+	max-height: 80vh;
+	overflow: auto;
+	margin: 0 auto;
+}
+
+.reservation-table .reservation-wrapper .reservation-slot .search-and-filter {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.625rem;
+	padding: 0.625rem;
+	background-color: rgb(12, 143, 71);
+}
+.reservation-table
+	.reservation-wrapper
+	.reservation-slot
+	.search-and-filter
+	.search,
+.reservation-table
+	.reservation-wrapper
+	.reservation-slot
+	.search-and-filter
+	.filter {
+	width: 100%;
+	padding: 0.625rem;
+	border-radius: 0.3125rem;
+	border: 1px solid rgb(165, 165, 165);
+	font-size: 1.125rem;
+}
+
+.reservation-table .reservation-wrapper .reservation-slot table {
+	width: 100%;
+	height: 100px;
+	overflow: auto;
+	position: relative;
 	border-collapse: collapse;
 }
 
-td {
-	border: 1px solid #ddd;
-	padding: 8px;
+.reservation-table .reservation-wrapper .reservation-slot table thead th {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+}
+.reservation-table .reservation-wrapper .reservation-slot .available-result {
+	background-color: #fff;
+	padding: 0.625rem;
+	text-align: center;
+	font-size: 1.125rem;
+	color: rgb(13, 173, 85);
+	box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.144);
+}
+
+.reservation-table .reservation-wrapper .reservation-slot table tbody tr td {
+	padding: 0.3125rem;
+	font-size: 0.875rem;
+	border: 0.0625rem solid rgba(0, 0, 0, 0.459);
+}
+.reservation-table
+	.reservation-wrapper
+	.reservation-slot
+	table
+	tbody
+	tr
+	.checkbox {
 	text-align: center;
 }
-
-td.empty {
-	background-color: #f2f2f2;
+.reservation-table
+	.reservation-wrapper
+	.reservation-slot
+	table
+	tbody
+	tr
+	.slot-num {
+	text-align: center;
 }
-
-button {
-	padding: 10px 20px;
-	background-color: #007bff;
-	color: #fff;
-	border: none;
+.reservation-table
+	.reservation-wrapper
+	.reservation-slot
+	table
+	tbody
+	tr
+	.checkbox
+	input {
+	width: 20px; /* Set the desired width for the checkbox */
+	height: 20px; /* Set the desired height for the checkbox */
+	border: 2px solid #3498db; /* Add a border to the checkbox */
+	border-radius: 4px; /* Round the checkbox corners */
+	background-color: transparent; /* Make the background transparent */
 	cursor: pointer;
 }
 
-button:hover {
-	background-color: #0056b3;
+.reservation-table .reserve-btn {
+	width: 40%;
+	margin: 1.25rem auto;
+}
+.reservation-table button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	border: none;
+	padding: 1.25rem;
+	background-color: rgb(12, 143, 71);
+	color: #fff;
+	cursor: pointer;
+	font-size: 1rem;
+	text-transform: uppercase;
+	border-radius: 0.3125rem;
+	transition: all 0.3s ease-in-out;
+	font-weight: 600;
+	letter-spacing: 0.0313rem;
+}
+
+.reservation-table button:hover {
+	transition: all 0.3s ease-in-out;
+	background-color: rgb(13, 173, 85);
+	box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.253);
+}
+
+@media screen and (max-width: 1440px) {
+	.reservation-table .logo {
+		width: 70%;
+	}
+	.reservation-table .reservation-wrapper {
+		width: 70% !important;
+	}
+	.reservation-table .reserve-btn {
+		width: 70% !important;
+	}
+}
+@media screen and (max-width: 768px) {
+	.reservation-table .logo {
+		width: 100%;
+	}
+	.reservation-table .reservation-wrapper {
+		width: 100% !important;
+	}
+	.reservation-table .reserve-btn {
+		width: 100% !important;
+	}
+	.reservation-table .reservation-wrapper .reservation-slot .search-and-filter {
+		display: flex;
+		flex-direction: column;
+	}
 }

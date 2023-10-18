@@ -6,77 +6,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservation Form</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- font inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="logo.jpg" alt="logo">
-            </div>
-        </nav>
-    </header>
     <main>
         <section class="reservation-table">
-            <table border="1">
-                <tr>
-                    <td width="1">
-                        <input type="checkbox" name="checkbox1" id="checkbox1">
-                    </td>
-                    <td>0000</td>
-                    <td width="100" class="empty" id="slot1"></td>
-                    <td width="1">
-                        <input type="checkbox" name="checkbox2" id="checkbox2">
-                    </td>
-                    <td>0001</td>
-                    <td width="100" class="empty" id="slot2"></td>
-                </tr>
-                <tr>
-                    <td width="1">
-                        <input type="checkbox" name="checkbox1" id="checkbox3">
-                    </td>
-                    <td>0002</td>
-                    <td width="100" class="empty" id="slot3"></td>
-                    <td width="1">
-                        <input type="checkbox" name="checkbox2" id="checkbox4">
-                    </td>
-                    <td>0004</td>
-                    <td width="100" class="empty" id="slot4"></td>
-                </tr>
-                <tr>
-                    <td width="1">
-                        <input type="checkbox" name="checkbox1" id="checkbox4">
-                    </td>
-                    <td>0005</td>
-                    <td width="100" class="empty" id="slot5"></td>
-                    <td width="1">
-                        <input type="checkbox" name="checkbox2" id="checkbox5">
-                    </td>
-                    <td>0006</td>
-                    <td width="100" class="empty" id="slot6"></td>
-                </tr>
-            </table>
-            <button id="reserve-button">Reserve slot here</button>
+            <div class="logo">
+                <img src="logo.png" alt="logo">
+            </div>
+            <div class="reservation-wrapper">
+                <div class="reservation-slot">
+                    <table>
+                        <thead>
+                            <th colspan="100">
+                                <div class="search-filter-and-result">
+                                    <div class="search-and-filter">
+                                        <input type="text" placeholder="Search" class="search" id="searchInput">
+                                        <select name="" class="filter" id="filterSelect">
+                                            <option value="all">All</option>
+                                            <option value="paid">Paid</option>
+                                            <option value="reserved">Reserved</option>
+                                            <option value="available">Available</option>
+                                        </select>
+                                    </div>
+                                    <div class="available-result">
+                                        <h4 id="availableSlot"></h4>
+                                    </div>
+                                </div>
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <script>
+                                    const totalSlots = 4001;
+                                    const slotsPerRow = 2;
+                                    const rows = Math.ceil(totalSlots / slotsPerRow);
+                                    for (let row = 0; row < rows; row++) {
+                                        document.write('<tr>');
+                                        for (let col = 0; col < slotsPerRow; col++) {
+                                            const slotNumber = row * slotsPerRow + col;
+                                            if (slotNumber < totalSlots) {
+                                                document.write(`
+                                                        <tr id="slotRow">
+                                                        <td class="checkbox">
+                                                        <input type="checkbox" name="checkbox${slotNumber}" id="checkbox${slotNumber}">
+                                                        </td>
+                                                        <td class="slot-num">${slotNumber.toString().padStart(4, '0')}</td>
+                                                        <td class="slot-name" id="slot${slotNumber}"></td></tr>`);
+                                            } else {
+                                                document.write('<td></td><td></td><td></td>');
+                                            }
+                                        }
+                                        document.write('</tr>');
+                                    }
+
+                                    // Add this JavaScript code to your script.js
+                                    window.addEventListener('scroll', function () {
+                                        const table = document.querySelector('table');
+                                        const tableRect = table.getBoundingClientRect();
+                                        const thead = table.querySelector('thead');
+
+                                        if (tableRect.top < 0 && tableRect.bottom > thead.clientHeight) {
+                                            thead.style.transform = 'translateY(0px)';
+                                        } else if (tableRect.top >= 0) {
+                                            thead.style.transform = '';
+                                        } else if (tableRect.bottom <= thead.clientHeight) {
+                                            thead.style.transform = `translateY(${tableRect.bottom - thead.clientHeight}px)`;
+                                        }
+                                    });
+
+                                </script>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="reserve-btn">
+                <button id="reserveButton">Reserve slot here</button>
+            </div>
         </section>
-    </main>
-    <!-- Modal -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Reservation Details</h2>
-            <form id="reservationForm">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name"><br><br>
-                <label for="mobile">Mobile Number:</label>
-                <input type="text" id="mobile" name="mobile"><br><br>
-                <h3>Slot Numbers:</h3> ()
-                <input type="button" value="Submit" onclick="submitReservation()">
-            </form>
+        <!-- initial modal -->
+        <div id="initialModal" class="initial-modal">
+            <div class="modal-content">
+                <i class="fa-solid fa-xmark" onclick="closeInitialModal()"></i></i>
+                <h2>Reservation Alert</h2>
+                <p>Upang makapagpareserve ng slots, icheck nyo lang po yung checkbox dun sa list namin.</p>
+                <input type="button" value="pick slot" onclick="pickSlot()">
+            </div>
         </div>
-    </div>
+        <!-- modal -->
+        <div id="modalContainer" class="modal">
+            <div class="modal-content">
+                <i class="fa-solid fa-xmark" onclick="closeModal()"></i></i>
+                <h2>Reservation Form</h2>
+                <form id="reservationForm">
+                    <label for="name">Facebook Name:
+                        <input type="text" id="name" name="name">
+                        <p>Siguraduhin pong kapangalan nyo yung nasa messenger. Ito po ang patunay ng reservation nyo.
+                        </p>
+                    </label>
+                    <label for="mobile">Mobile Number:
+                        <input type="number" id="mobile" name="mobile">
+                        <p>Dito po kami magsesend ng mga announcements. Ito din po ang patunay ng reservation nyo.</p>
+                    </label>
+                    <div id="totalPrice"></div>
+                    <input type="button" value="reserve" onclick="submitReservation()">
+                </form>
+            </div>
+        </div>
+        <!-- success modal -->
+        <div id="successModal" class="success-modal">
+            <div class="modal-content">
+                <i class="fa-solid fa-xmark" onclick="closeSuccessModal()"></i></i>
+                <h2>Reserved Successfully!</h2>
+                <div class="gcash-logo">
+                    <img src="./gcash-logo.webp" alt="gcash logo">
+                </div>
+                <ul>
+                    <li>GCash name: <strong>Mark</strong></li>
+                    <li>GCash: number: <strong>09123442455</strong></li>
+                    <li>Amount payable: <strong><span id="totalPay"></span></strong></li>
+                </ul>
+                <p>Upang maverify ang inyong reservation, pakisend na lang sa messenger namin ang
+                    screenshot ng GCASH payment at yung pangalan na niregister nyo dito
+                    (<strong><span id="registeredName">
+                        </span></strong>)
+                    Thank you
+                </p>
+                <input type="button" value="go to messenger" onclick="goToMessage()">
+            </div>
+        </div>
+    </main>
     <script src="script.js"></script>
 </body>
 
